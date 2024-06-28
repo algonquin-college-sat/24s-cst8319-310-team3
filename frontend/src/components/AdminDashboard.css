@@ -1,0 +1,21 @@
+/* AdminDashboard.css */
+.admin-dashboard {
+    font-family: "Poppins", sans-serif;
+    padding: 20px;
+  }
+  
+  .admin-dashboard ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .admin-dashboard ul li {
+    margin: 10px 0;
+  }
+  
+  .admin-dashboard ul li a {
+    color: #e88a1d;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  

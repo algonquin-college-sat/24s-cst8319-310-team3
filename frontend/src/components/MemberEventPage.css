@@ -1,0 +1,37 @@
+/* MemberEventPage.css */
+.member-event-page {
+    font-family: "Poppins", sans-serif;
+    padding: 20px;
+  }
+  
+  .event-list {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-item {
+    background: #fff3b7;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .event-item h2 {
+    color: #e88a1d;
+  }
+  
+  .event-item button {
+    background: #e88a1d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+  
+  .event-item button:hover {
+    background: #d17b1c;
+  }
+  

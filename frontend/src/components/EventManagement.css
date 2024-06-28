@@ -1,0 +1,37 @@
+/* EventManagement.css */
+.event-management {
+    font-family: "Poppins", sans-serif;
+    padding: 20px;
+  }
+  
+  .event-management table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .event-management th,
+  .event-management td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .event-management th {
+    background-color: #e88a1d;
+    color: white;
+  }
+  
+  .event-management button {
+    background: #e88a1d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .event-management button:hover {
+    background: #d17b1c;
+  }
+  

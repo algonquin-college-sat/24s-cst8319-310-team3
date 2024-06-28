@@ -1,9 +1,13 @@
 import React from 'react';
+import VolunteerSignupForm from './VolunteerSignUpForm';
 
 function Volunteer() {
-    return (
-        <p>Volunteer Page</p>
-    );
+  return (
+    <div>
+      <h1>Volunteer Page</h1>
+      <VolunteerSignupForm />
+    </div>
+  );
 }
 
 export default Volunteer;
