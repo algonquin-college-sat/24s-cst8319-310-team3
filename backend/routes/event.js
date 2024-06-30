@@ -7,5 +7,6 @@ router.post("/addEvent", eventController.addEvent);
 router.post("/updateEvent", eventController.updateEvent);
 router.get("/deleteEvent/:id", eventController.deleteEvent);
 router.get("/getEventById/:id", eventController.getEventById);
+router.post("/selectImage", eventController.selectImage);
 
 module.exports = router;

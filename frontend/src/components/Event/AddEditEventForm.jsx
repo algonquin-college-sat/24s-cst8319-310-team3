@@ -14,6 +14,9 @@ const AddEditEventForm = ({ event, onSave, onCancel }) => {
         imageUrl: ''
     });
 
+    const [images, setImages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState('');
+
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -25,6 +28,24 @@ const AddEditEventForm = ({ event, onSave, onCancel }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         onSave(formData);
+    };
+
+    const handleSelectImage = async () => {
+        try {
+            console.log('Fetching images...');
+            console.log("Calling select image in frontend" + __dirname)
+            const response = await fetch('http://localhost:3001/api/event/selectImage');
+            const images = await response.json();
+            setImages(images);
+        } catch (error) {
+            console.error('Error fetching images:', error);
+        }
+    };
+
+    const handleImageClick = (imageName) => {
+        setSelectedImage(imageName);
+        // Optionally, update formData here if you want to immediately reflect the selection
+        // setFormData({...formData, imageUrl: imageName});
     };
 
     return (
@@ -64,7 +85,19 @@ const AddEditEventForm = ({ event, onSave, onCancel }) => {
             </label>
             <label>
                 Image URL:
-                <input type="text" name="imageUrl" value={formData.imageUrl} onChange={handleChange} required />
+                <button type="button" className="action-button" onClick={handleSelectImage}>Select Image</button>
+                {/* <div className="image-selection">
+                    {images.map((image, index) => (
+                        <img
+                            key={index}
+                            src={`http://localhost:3001/image/EventImage/${image}`}
+                            alt={image}
+                            onClick={() => handleImageClick(image)}
+                            style={{ border: selectedImage === image ? '2px solid blue' : 'none', cursor: 'pointer' }}
+                            width="100"
+                        />
+                    ))}
+                </div> */}
             </label>
             <div className="form-actions">
                 <button type="submit" className="action-button">{event ? 'Save Changes' : 'Add Event'}</button>

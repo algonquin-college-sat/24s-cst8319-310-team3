@@ -80,3 +80,20 @@ exports.getEventById = async (req, res) => {
     }
 };
 
+exports.selectImage = async (req, res) => {
+    const images = res.json(["image1.jpg", "image2.jpg", "image3.jpg", "image4.jpg", "image5.jpg"]);
+    console.log(images);
+    // const fs = require('fs');
+    // const path = require('path');
+    // console.log("Calling select image in backend" + __dirname);
+    // const directoryPath = path.join(__dirname, '../image/EventImage');
+
+    // fs.readdir(directoryPath, function (err, files) {
+    //     if (err) {
+    //         console.log('Unable to scan directory: ' + err);
+    //         return res.status(500).send('Unable to scan directory');
+    //     } 
+    //     const imageFiles = files.filter(file => /\.(jpg|jpeg|png|gif)$/i.test(file));
+    //     res.json(imageFiles);
+    // });
+};
