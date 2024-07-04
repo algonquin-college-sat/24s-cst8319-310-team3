@@ -12,6 +12,7 @@ const VolunteerSignUpForm = () => {
     understandUnpaid: false,
   });
 
+  const [errors, setErrors] = useState({});
   const [submissionStatus, setSubmissionStatus] = useState('');
 
   useEffect(() => {
@@ -39,15 +40,41 @@ const VolunteerSignUpForm = () => {
     });
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phonePattern = /^[0-9]{10}$/;
+
+    if (!formData.name) newErrors.name = 'Name is required';
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!emailPattern.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    if (!formData.contactNumber) {
+      newErrors.contactNumber = 'Contact Number is required';
+    } else if (!phonePattern.test(formData.contactNumber)) {
+      newErrors.contactNumber = 'Please enter a valid 10-digit phone number';
+    }
+    if (!formData.preferredRoles) newErrors.preferredRoles = 'Preferred Roles is required';
+    if (!formData.agreePolicies) newErrors.agreePolicies = 'You must agree to the policies';
+    if (!formData.understandUnpaid) newErrors.understandUnpaid = 'You must understand the volunteer position is unpaid';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      await axios.post('/api/volunteerSignUp', formData);
-      alert('Volunteer signed up successfully!');
-      setSubmissionStatus('success');
-    } catch (error) {
-      console.error('Error signing up volunteer:', error);
-      setSubmissionStatus('fail');
+    if (validateForm()) {
+      try {
+        await axios.post('/api/volunteerSignUp', formData);
+        alert('Volunteer signed up successfully!');
+        setSubmissionStatus('success');
+      } catch (error) {
+        console.error('Error signing up volunteer:', error);
+        setSubmissionStatus('fail');
+      }
     }
   };
 
@@ -60,6 +87,7 @@ const VolunteerSignUpForm = () => {
       agreePolicies: false,
       understandUnpaid: false,
     });
+    setErrors({});
   };
 
   return (
@@ -67,16 +95,48 @@ const VolunteerSignUpForm = () => {
       <h2>Volunteer Sign-Up</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-box">
-          <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name" required />
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            placeholder="Enter your name"
+            required
+          />
+          {errors.name && <p className="error">{errors.name}</p>}
         </div>
         <div className="input-box">
-          <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email" required />
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+            required
+          />
+          {errors.email && <p className="error">{errors.email}</p>}
         </div>
         <div className="input-box">
-          <input type="text" name="contactNumber" value={formData.contactNumber} onChange={handleChange} placeholder="Contact Number" required />
+          <input
+            type="text"
+            name="contactNumber"
+            value={formData.contactNumber}
+            onChange={handleChange}
+            placeholder="Enter your contact number"
+            required
+          />
+          {errors.contactNumber && <p className="error">{errors.contactNumber}</p>}
         </div>
         <div className="input-box">
-          <input type="text" name="preferredRoles" value={formData.preferredRoles} onChange={handleChange} placeholder="Preferred Roles" required />
+          <input
+            type="text"
+            name="preferredRoles"
+            value={formData.preferredRoles}
+            onChange={handleChange}
+            placeholder="Enter your preferred roles"
+            required
+          />
+          {errors.preferredRoles && <p className="error">{errors.preferredRoles}</p>}
         </div>
         <div className="volunteer-agreement">
           <label>
@@ -89,6 +149,7 @@ const VolunteerSignUpForm = () => {
             />
             I agree to abide by the policies and guidelines of Ottawa Tamil Sangam
           </label>
+          {errors.agreePolicies && <p className="error">{errors.agreePolicies}</p>}
           <label>
             <input
               type="checkbox"
@@ -99,6 +160,7 @@ const VolunteerSignUpForm = () => {
             />
             I understand that my volunteer position is unpaid and does not imply any employment relationship.
           </label>
+          {errors.understandUnpaid && <p className="error">{errors.understandUnpaid}</p>}
         </div>
         <button type="submit">Submit</button>
         <button type="button" onClick={handleClearForm} className="clear-form">Clear form</button>
