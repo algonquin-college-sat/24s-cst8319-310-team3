@@ -65,7 +65,7 @@ const AddEditEventForm = ({ event, onSave, onCancel }) => {
     uploadFormData.append("file", selectedFile);
 
     try {
-      const response = await axios.post("http://localhost:3000/api/event/upload", uploadFormData);
+      const response = await axios.post("http://localhost:3000/api/uploads/uploadImage", uploadFormData);
 
       if (response.data.status === "success") {
         setFailMessage("");
